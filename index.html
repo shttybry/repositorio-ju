@@ -1,0 +1,745 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Politecnico Digna Teresa Feliz de Estrada</title>
+    <style>
+        /* Estilos generales */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f8f9fa;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+        
+        /* Header y navegación */
+        header {
+            background: linear-gradient(135deg, #1a5fb4 0%, #3584e4 100%);
+            color: white;
+            padding: 1rem 0;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .logo-icon {
+            font-size: 2.5rem;
+        }
+        
+        .logo-text h1 {
+            font-size: 1.5rem;
+            line-height: 1.2;
+        }
+        
+        .logo-text p {
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+        
+        nav ul li {
+            margin-left: 1.5rem;
+        }
+        
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            padding: 5px 10px;
+            border-radius: 4px;
+            transition: background-color 0.3s;
+        }
+        
+        nav ul li a:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+        
+        nav ul li a.active {
+            background-color: rgba(255, 255, 255, 0.2);
+        }
+        
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+        
+        /* Secciones de contenido */
+        .page {
+            display: none;
+            padding: 3rem 0;
+            min-height: calc(100vh - 200px);
+        }
+        
+        .page.active {
+            display: block;
+        }
+        
+        .page-title {
+            text-align: center;
+            margin-bottom: 2.5rem;
+            color: #1a5fb4;
+            position: relative;
+            padding-bottom: 15px;
+        }
+        
+        .page-title:after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 3px;
+            background-color: #1a5fb4;
+        }
+        
+        /* Página de Inicio */
+        .hero {
+            background: linear-gradient(rgba(26, 95, 180, 0.8), rgba(53, 132, 228, 0.8)), url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><rect width="100" height="100" fill="%231a5fb4"/><path d="M0 0L100 100M100 0L0 100" stroke="%233584e4" stroke-width="2"/></svg>');
+            background-size: cover;
+            color: white;
+            text-align: center;
+            padding: 5rem 1rem;
+            border-radius: 10px;
+            margin-bottom: 3rem;
+        }
+        
+        .hero h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto 2rem;
+        }
+        
+        .btn {
+            display: inline-block;
+            background-color: white;
+            color: #1a5fb4;
+            padding: 12px 30px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s;
+            border: 2px solid white;
+        }
+        
+        .btn:hover {
+            background-color: transparent;
+            color: white;
+        }
+        
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+        
+        .feature-card {
+            background: white;
+            border-radius: 10px;
+            padding: 2rem;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            text-align: center;
+            transition: transform 0.3s;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .feature-icon {
+            font-size: 3rem;
+            color: #1a5fb4;
+            margin-bottom: 1rem;
+        }
+        
+        .feature-card h3 {
+            margin-bottom: 1rem;
+            color: #1a5fb4;
+        }
+        
+        /* Página Sobre Nosotros */
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: center;
+        }
+        
+        .about-image {
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+        
+        .about-image img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+        
+        .about-text h3 {
+            margin-bottom: 1rem;
+            color: #1a5fb4;
+        }
+        
+        .mission-vision {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+        
+        .mission-card, .vision-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+        
+        .mission-card h3, .vision-card h3 {
+            color: #1a5fb4;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        /* Página de Contacto */
+        .contact-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+        }
+        
+        .contact-info {
+            background: white;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+        
+        .contact-info h3 {
+            color: #1a5fb4;
+            margin-bottom: 1.5rem;
+        }
+        
+        .contact-item {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 1.5rem;
+        }
+        
+        .contact-icon {
+            font-size: 1.5rem;
+            color: #1a5fb4;
+            margin-right: 1rem;
+            min-width: 30px;
+        }
+        
+        .contact-form {
+            background: white;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+        
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+        
+        .form-control {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 1rem;
+            transition: border-color 0.3s;
+        }
+        
+        .form-control:focus {
+            border-color: #1a5fb4;
+            outline: none;
+        }
+        
+        textarea.form-control {
+            min-height: 150px;
+            resize: vertical;
+        }
+        
+        .submit-btn {
+            background: #1a5fb4;
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 5px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        
+        .submit-btn:hover {
+            background: #154b8c;
+        }
+        
+        /* Footer */
+        footer {
+            background-color: #1a1a1a;
+            color: white;
+            padding: 3rem 0 1.5rem;
+            margin-top: 3rem;
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+        
+        .footer-section h3 {
+            margin-bottom: 1.5rem;
+            color: #fff;
+            position: relative;
+            padding-bottom: 10px;
+        }
+        
+        .footer-section h3:after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50px;
+            height: 2px;
+            background-color: #1a5fb4;
+        }
+        
+        .footer-section p, .footer-section a {
+            color: #bbb;
+            margin-bottom: 0.8rem;
+            display: block;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .footer-section a:hover {
+            color: white;
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 1rem;
+        }
+        
+        .social-links a {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background-color: #333;
+            border-radius: 50%;
+            transition: background-color 0.3s;
+        }
+        
+        .social-links a:hover {
+            background-color: #1a5fb4;
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 1.5rem;
+            border-top: 1px solid #333;
+            color: #bbb;
+            font-size: 0.9rem;
+        }
+        
+        /* Responsive */
+        @media (max-width: 992px) {
+            .about-content, .contact-content {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .logo {
+                margin-bottom: 1rem;
+            }
+            
+            nav ul {
+                margin-top: 1rem;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            
+            nav ul li {
+                margin: 0 0.5rem 0.5rem;
+            }
+            
+            .hero h2 {
+                font-size: 2rem;
+            }
+            
+            .hero p {
+                font-size: 1rem;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .mobile-menu-btn {
+                display: block;
+                position: absolute;
+                top: 1rem;
+                right: 1rem;
+            }
+            
+            nav {
+                width: 100%;
+                display: none;
+            }
+            
+            nav.active {
+                display: block;
+            }
+            
+            nav ul {
+                flex-direction: column;
+                margin-top: 1rem;
+            }
+            
+            nav ul li {
+                margin: 0.5rem 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <div class="logo-text">
+                        <h1>Politecnico Digna Teresa Feliz de Estrada</h1>
+                        <p>Formando profesionales de excelencia</p>
+                    </div>
+                </div>
+                <button class="mobile-menu-btn">☰</button>
+                <nav id="main-nav">
+                    <ul>
+                        <li><a href="#" class="nav-link active" data-page="inicio">Inicio</a></li>
+                        <li><a href="#" class="nav-link" data-page="nosotros">Sobre Nosotros</a></li>
+              <li><a href="subindexx.html">IPAVIRTUAL</a></li>
+                        <li><a href="#" class="nav-link" data-page="contacto">Contacto</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <!-- Contenido principal -->
+    <main>
+        <!-- Página de Inicio -->
+        <section id="inicio" class="page active">
+            <div class="container">
+                <div class="hero">
+                    <h2>Bienvenidos al Politecnico Digna Teresa Feliz de Estrada</h2>
+                    <p>Una institución educativa comprometida con la formación integral de profesionales técnicos capaces de enfrentar los retos del mundo actual.</p>
+                    <a href="#" class="btn" data-page="nosotros">Conoce más</a>
+                </div>
+                
+                <h2 class="page-title">Nuestras Características</h2>
+                
+                <div class="features">
+                    <div class="feature-card">
+                        <div class="feature-icon">📚</div>
+                        <h3>Educación de Calidad</h3>
+                        <p>Programas académicos actualizados y docentes altamente calificados para garantizar una educación de excelencia.</p>
+                    </div>
+                    
+                    <div class="feature-card">
+                        <div class="feature-icon">🔬</div>
+                        <h3>Laboratorios Equipados</h3>
+                        <p>Contamos con laboratorios modernos y equipados para el desarrollo práctico de nuestras carreras técnicas.</p>
+                    </div>
+                    
+                    <div class="feature-card">
+                        <div class="feature-icon">🤝</div>
+                        <h3>Vinculación Laboral</h3>
+                        <p>Programas de pasantías y convenios con empresas para facilitar la inserción laboral de nuestros egresados.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Página Sobre Nosotros -->
+        <section id="nosotros" class="page">
+            <div class="container">
+                <h2 class="page-title">Sobre Nosotros</h2>
+                
+                <div class="about-content">
+                    <div class="about-image">
+                        <!-- Imagen representativa del centro educativo -->
+                        <div style="width:100%;height:300px;background:linear-gradient(135deg, #1a5fb4 0%, #3584e4 100%);display:flex;align-items:center;justify-content:center;color:white;font-size:1.5rem;">
+                        <img src="images.jpg" alt="">
+                        </div>
+                    </div>
+                    
+                    <div class="about-text">
+                        <h3>Nuestra Historia</h3>
+                        <p>El Politecnico Digna Teresa Feliz de Estrada fue fundado con la misión de ofrecer educación técnica de calidad, formando profesionales competentes y éticos que contribuyan al desarrollo de nuestra sociedad.</p>
+                        
+                        <p>Con más de 20 años de experiencia, nos hemos consolidado como una institución de referencia en la formación técnica, adaptándonos constantemente a las demandas del mercado laboral y las nuevas tecnologías.</p>
+                        
+                        <h3>Nuestros Valores</h3>
+                        <p>Nos guiamos por principios de excelencia académica, responsabilidad social, integridad, respeto y compromiso con el desarrollo sostenible de nuestra comunidad.</p>
+                    </div>
+                </div>
+                
+                <div class="mission-vision">
+                    <div class="mission-card">
+                        <h3>📋 Misión</h3>
+                        <p>Formar técnicos profesionales con competencias laborales, valores éticos y responsabilidad social, capaces de insertarse exitosamente en el mercado laboral y contribuir al desarrollo socioeconómico del país.</p>
+                    </div>
+                    
+                    <div class="vision-card">
+                        <h3>🔭 Visión</h3>
+                        <p>Ser reconocidos como el centro de educación técnica líder en la región, innovador en sus metodologías educativas y comprometido con la excelencia académica y el desarrollo integral de nuestros estudiantes.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Página de Contacto -->
+        <section id="contacto" class="page">
+            <div class="container">
+                <h2 class="page-title">Contacto</h2>
+                
+                <div class="contact-content">
+                    <div class="contact-info">
+                        <h3>Información de Contacto</h3>
+                        
+                        <div class="contact-item">
+                            <div class="contact-icon">📍</div>
+                            <div>
+                                <h4>Dirección</h4>
+                                <p>Av. Principal #123, Ciudad, Estado</p>
+                            </div>
+                        </div>
+                        
+                        <div class="contact-item">
+                            <div class="contact-icon">📞</div>
+                            <div>
+                                <h4>Teléfono</h4>
+                                <p>(123) 456-7890</p>
+                            </div>
+                        </div>
+                        
+                        <div class="contact-item">
+                            <div class="contact-icon">✉️</div>
+                            <div>
+                                <h4>Email</h4>
+                                <p>info@politecnicodigna.edu</p>
+                            </div>
+                        </div>
+                        
+                        <div class="contact-item">
+                            <div class="contact-icon">🕒</div>
+                            <div>
+                                <h4>Horario de Atención</h4>
+                                <p>Lunes a Viernes: 7:00 AM - 5:00 PM</p>
+                                <p>Sábados: 8:00 AM - 12:00 PM</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-form">
+                        <h3>Envíanos un Mensaje</h3>
+                        <form id="contactForm">
+                            <div class="form-group">
+                                <label for="name">Nombre Completo</label>
+                                <input type="text" id="name" class="form-control" required>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="email">Correo Electrónico</label>
+                                <input type="email" id="email" class="form-control" required>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="subject">Asunto</label>
+                                <input type="text" id="subject" class="form-control" required>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="message">Mensaje</label>
+               <textarea id="message" class="form-control" required></textarea>
+                            </div>
+                            
+                            <button type="submit" class="submit-btn">Enviar Mensaje</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Politecnico Digna Teresa Feliz de Estrada</h3>
+                    <p>Formando profesionales técnicos de excelencia con valores éticos y responsabilidad social.</p>
+                    <div class="social-links">
+                        <a href="#" title="Facebook">f</a>
+                        <a href="#" title="Twitter">t</a>
+                        <a href="#" title="Instagram">ig</a>
+                        <a href="#" title="YouTube">YT</a>
+                    </div>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Enlaces Rápidos</h3>
+                    <a href="#" data-page="inicio">Inicio</a>
+                    <a href="#" data-page="nosotros">Sobre Nosotros</a>
+                    <a href="#" data-page="contacto">Contacto</a>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Programas Académicos</h3>
+                    <a href="#">Técnico en Informática</a>
+                    <a href="#">Técnico en Administración</a>
+                    <a href="#">Técnico en Contabilidad</a>
+                    <a href="#">Técnico en Electricidad</a>
+                </div>
+            </div>
+            
+            <div class="copyright">
+                <p>&copy; 2023 Politecnico Digna Teresa Feliz de Estrada. Todos los derechos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Navegación entre páginas
+        document.addEventListener('DOMContentLoaded', function() {
+            const navLinks = document.querySelectorAll('.nav-link');
+            const pages = document.querySelectorAll('.page');
+            const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+            const mainNav = document.getElementById('main-nav');
+            
+            // Función para cambiar de página
+            function showPage(pageId) {
+                // Ocultar todas las páginas
+                pages.forEach(page => {
+                    page.classList.remove('active');
+                });
+                
+                // Mostrar la página seleccionada
+                document.getElementById(pageId).classList.add('active');
+                
+                // Actualizar enlaces activos
+                navLinks.forEach(link => {
+                    link.classList.remove('active');
+                    if (link.getAttribute('data-page') === pageId) {
+                        link.classList.add('active');
+                    }
+                });
+                
+                // Cerrar menú móvil si está abierto
+                if (window.innerWidth <= 576) {
+                    mainNav.classList.remove('active');
+                }
+            }
+            
+            // Event listeners para los enlaces de navegación
+            navLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const pageId = this.getAttribute('data-page');
+                    showPage(pageId);
+                });
+            });
+            
+            // Event listener para el botón del menú móvil
+            mobileMenuBtn.addEventListener('click', function() {
+                mainNav.classList.toggle('active');
+            });
+            
+            // Manejo del formulario de contacto
+            const contactForm = document.getElementById('contactForm');
+            if (contactForm) {
+                contactForm.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    alert('¡Gracias por tu mensaje! Te contactaremos pronto.');
+                    contactForm.reset();
+                });
+            }
+            
+            // Enlaces del footer
+            const footerLinks = document.querySelectorAll('.footer-section a[data-page]');
+            footerLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const pageId = this.getAttribute('data-page');
+                    showPage(pageId);
+                });
+            });
+        });
+    </script>
+</body>
+</html>
